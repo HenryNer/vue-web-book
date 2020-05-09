@@ -18,7 +18,8 @@ module.exports = {
     'no-unused-vars' : 'off',
     'comma-spacing' : 'off',
     'no-undef' : 'off',
-    'spaced-comment' : 'off'
+    'spaced-comment' : 'off',
+    'no-unneeded-ternary' : 'off'
   },
   parserOptions: {
     parser: 'babel-eslint'

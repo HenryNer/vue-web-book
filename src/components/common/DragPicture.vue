@@ -15,7 +15,8 @@ import { realPx, px2rem } from '../../utils/utils'
 
 export default {
   props: {
-    banner: Array
+    banner: Array,
+    resStatus: Boolean
   },
   data() {
     return {
@@ -23,6 +24,22 @@ export default {
       width: null,
       timeLoop: null,
       stopLastPicMove: true
+    }
+  },
+  watch: {
+    resStatus() {
+      new Promise((resolve) => {
+        setTimeout(() => {
+          this.resizeWidth()
+          resolve()
+        }, 2000) 
+      }).then(() => {
+        setTimeout(() => {
+          this.loop()
+        }, 1000)
+      }).then(() => {
+        this.stopLastPicMove = false
+      })
     }
   },
   methods: {
@@ -61,19 +78,19 @@ export default {
   mounted() {
     window.onresize = this.resizeWidth
     //异步才能在mounted中获取到refs
-    setTimeout(() => {
-      this.resizeWidth()
-    }, 100)
-    //启动轮播
-    new Promise((resolve) => {
-      setTimeout(() => {
-        this.loop()
-        resolve()
-      }, 1000)
-    }).then(() => {
-      //防止轮播开始时不必要的效果
-      this.stopLastPicMove = false
-    })
+    // setTimeout(() => {
+    //   this.resizeWidth()
+    // }, 100)
+    // //启动轮播
+    // new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     this.loop()
+    //     resolve()
+    //   }, 1000)
+    // }).then(() => {
+    //   //防止轮播开始时不必要的效果
+    //   this.stopLastPicMove = false
+    // })
   },
   destroyed() {
     if (this.timeLoop) clearTimeout(this.timeLoop)

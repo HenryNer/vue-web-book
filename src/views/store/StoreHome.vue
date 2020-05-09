@@ -3,7 +3,7 @@
         <search-bar></search-bar>
         <flap-card :data="random"></flap-card>
         <scroll :top="scrollTop" @onScroll="onScroll" ref="scroll">
-            <drag-picture class="banner-wrapper" :banner="banner"></drag-picture>
+            <drag-picture class="banner-wrapper" :banner="banner" :resStatus="resStatus"></drag-picture>
             <guess-you-like :data="guessYouLike"></guess-you-like>
             <recommend :data="recommend" :class="recommend"></recommend>
             <featured :data="featured" :titleText="$t('home.featured')" :class="featured"></featured>
@@ -51,7 +51,8 @@
                 recommend: null,
                 featured: null,
                 categoryList: null,
-                categories: null
+                categories: null,
+                resStatus: false
             }
         },
         methods: {
@@ -78,6 +79,7 @@
                     this.featured = data.featured
                     this.categoryList = data.categoryList //注意这里的categoryList为二维数组，这个组件中先做一次循环后再传入item给category组件处理一维数组
                     this.categories = data.categories
+                    this.resStatus = true
                 }
             })
         }
